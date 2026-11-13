@@ -4,10 +4,6 @@ name: Publish site
 on:
   workflow_dispatch:
     inputs:
-      delete_remote:
-        description: "Töröljön a szerverről minden olyat, ami már nincs a repóban? (óvatosan)"
-        type: boolean
-        default: false
       dry_run:
         description: "Csak szimuláció, nem tölt fel semmit"
         type: boolean
@@ -38,7 +34,6 @@ jobs:
           FTP_DIR: /public_html/casa-verde-2026
           FTP_USER: ${{ vars.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          DELETE_REMOTE: ${{ inputs.delete_remote }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
@@ -47,7 +42,6 @@ jobs:
           done
 
           MIRROR_OPTS="--reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob .github/* --exclude-glob README.md"
-          if [ "$DELETE_REMOTE" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --delete"; fi
           if [ "$DRY_RUN" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --dry-run"; fi
 
           lftp -u "$FTP_USER","$FTP_PASSWORD" "$FTP_HOST" <<EOF
@@ -64,5 +58,4 @@ jobs:
         run: |
           echo "### Publikálás kész" >> "$GITHUB_STEP_SUMMARY"
           echo "- Dry run: \`${{ inputs.dry_run }}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Távoli törlés: \`${{ inputs.delete_remote }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
