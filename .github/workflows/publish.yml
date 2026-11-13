@@ -28,6 +28,21 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
+      - name: Stage site files (csak a publikus oldal)
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/stage" && mkdir -p "$RUNNER_TEMP/stage"
+          rsync -a \
+            --exclude='.git' --exclude='.git/***' \
+            --exclude='.github/***' \
+            --exclude='README.md' --exclude='CLAUDE.md' \
+            ./ "$RUNNER_TEMP/stage/"
+          # Biztonsági ellenőrzés: ezek soha nem kerülhetnek a szerverre
+          for bad in .git .github README.md CLAUDE.md; do
+            if [ -e "$RUNNER_TEMP/stage/$bad" ]; then echo "HIBA: $bad a staging mappában"; exit 1; fi
+          done
+          echo "Staging fájlok: $(find "$RUNNER_TEMP/stage" -type f | wc -l)"
+
       - name: Deploy via FTPS
         env:
           FTP_HOST: ftp.solar-invest.ro
@@ -41,7 +56,7 @@ jobs:
             if [ -z "${!v}" ]; then echo "Hiányzik: $v (FTP_USER = Variable, FTP_PASSWORD = Secret)"; exit 1; fi
           done
 
-          MIRROR_OPTS="--reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob .github/* --exclude-glob README.md"
+          MIRROR_OPTS="--reverse --verbose --parallel=4"
           if [ "$DRY_RUN" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --dry-run"; fi
 
           lftp -u "$FTP_USER","$FTP_PASSWORD" "$FTP_HOST" <<EOF
@@ -50,7 +65,7 @@ jobs:
           set ssl:verify-certificate yes
           set net:max-retries 3
           set net:timeout 20
-          mirror $MIRROR_OPTS ./ "$FTP_DIR"
+          mirror $MIRROR_OPTS "$RUNNER_TEMP/stage" "$FTP_DIR"
           bye
           EOF
 
