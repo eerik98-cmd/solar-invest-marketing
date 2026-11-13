@@ -34,16 +34,16 @@ jobs:
 
       - name: Deploy via FTPS
         env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_HOST: ftp.solar-invest.ro
+          FTP_DIR: /public_html/casa-verde-2026
+          FTP_USER: ${{ vars.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_DIR: ${{ secrets.FTP_DIR }}
           DELETE_REMOTE: ${{ inputs.delete_remote }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
-          for v in FTP_HOST FTP_USER FTP_PASSWORD FTP_DIR; do
-            if [ -z "${!v}" ]; then echo "Hiányzik a secret: $v"; exit 1; fi
+          for v in FTP_USER FTP_PASSWORD; do
+            if [ -z "${!v}" ]; then echo "Hiányzik: $v (FTP_USER = Variable, FTP_PASSWORD = Secret)"; exit 1; fi
           done
 
           MIRROR_OPTS="--reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob .github/* --exclude-glob README.md"
