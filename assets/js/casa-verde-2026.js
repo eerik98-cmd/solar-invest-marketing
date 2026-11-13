@@ -26,7 +26,7 @@
       full: "Ezzel a tervvel a maximális 100 pontot éred el!",
       overCap: "A projekt értéke ({v} lej) meghaladja a {kwh} kWh-ra számolt elszámolható felső határt ({c} lej). A felette lévő összeg nem elszámolható, saját forrásból fizetendő.",
       mailSubject: "Casa Verde akkumulátor 2026 ajánlatkérés",
-      mailBody: "Üdvözlöm!\n\nAjánlatot kérek a kiválasztott energiatároló rendszerre.\nModell: {model}\nTípus: {type}\nKapacitás: {kwh} kWh\nTájékoztató demóár: {price} lej\nÖnerő: {own} lej\nBecsült AFM-támogatás: {fin} lej\nBecsült pontszám: {score}/100\n\nNév:\nTelefonszám:\nTelepülés:\n"
+      mailBody: "Üdvözlöm!\n\nAjánlatot kérek a kiválasztott energiatároló rendszerre.\nModell: {model}\nTípus: {type}\nKapacitás: {kwh} kWh\nTájékoztató példaár: {price} lej\nÖnerő: {own} lej\nBecsült AFM-támogatás: {fin} lej\nBecsült pontszám: {score}/100\n\nNév:\nTelefonszám:\nTelepülés:\n"
     },
     ro: {
       thousands: ".",
