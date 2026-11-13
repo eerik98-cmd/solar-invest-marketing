@@ -1,0 +1,68 @@
+name: Publish site
+
+# Gombnyomásra fut: GitHub → Actions → "Publish site" → Run workflow
+on:
+  workflow_dispatch:
+    inputs:
+      delete_remote:
+        description: "Töröljön a szerverről minden olyat, ami már nincs a repóban? (óvatosan)"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Csak szimuláció, nem tölt fel semmit"
+        type: boolean
+        default: true
+
+concurrency:
+  group: publish-site
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # Ha az "production" environmentben required reviewert állítasz be, jóváhagyás után fut.
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via FTPS
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.FTP_DIR }}
+          DELETE_REMOTE: ${{ inputs.delete_remote }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          for v in FTP_HOST FTP_USER FTP_PASSWORD FTP_DIR; do
+            if [ -z "${!v}" ]; then echo "Hiányzik a secret: $v"; exit 1; fi
+          done
+
+          MIRROR_OPTS="--reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob .github/* --exclude-glob README.md"
+          if [ "$DELETE_REMOTE" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --delete"; fi
+          if [ "$DRY_RUN" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --dry-run"; fi
+
+          lftp -u "$FTP_USER","$FTP_PASSWORD" "$FTP_HOST" <<EOF
+          set ftp:ssl-allow yes
+          set ftp:ssl-force yes
+          set ssl:verify-certificate yes
+          set net:max-retries 3
+          set net:timeout 20
+          mirror $MIRROR_OPTS ./ "$FTP_DIR"
+          bye
+          EOF
+
+      - name: Summary
+        run: |
+          echo "### Publikálás kész" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Dry run: \`${{ inputs.dry_run }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Távoli törlés: \`${{ inputs.delete_remote }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
