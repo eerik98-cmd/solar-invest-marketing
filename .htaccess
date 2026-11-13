@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^casa-verde-2027(/.*)?$ casa-verde-2026$1 [R=301,L,NE]
+RewriteRule ^home/(hu|ro)/?$ $1/index.html [R=301,L,NE]
+RewriteRule ^(projects|news|contact|calculator|investment|investment_details|green-house)/(hu|ro)/?$ $2/$1.html [R=301,L,NE]
+RewriteRule ^(project|new|suport)/([a-zA-Z0-9_-]+)/(hu|ro)/?$ $3/$1/$2.html [R=301,L,NE]
+RewriteRule ^news/cat=([a-zA-Z0-9_-]+)/(hu|ro)/?$ $2/news/cat=$1.html [R=301,L,NE]
+RewriteRule ^home/?$ ro/index.html [R=301,L,NE]
+RewriteRule ^(projects|news|contact|calculator|investment|investment_details|green-house)/?$ ro/$1.html [R=301,L,NE]
+RewriteRule ^(project|new|suport)/([a-zA-Z0-9_-]+)/?$ ro/$1/$2.html [R=301,L,NE]
+RewriteRule ^news/cat=([a-zA-Z0-9_-]+)/?$ ro/news/cat=$1.html [R=301,L,NE]
+RewriteRule ^(hu|ro)/?$ $1/index.html [R=301,L,NE]
+</IfModule>
