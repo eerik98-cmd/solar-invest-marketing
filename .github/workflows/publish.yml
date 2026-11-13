@@ -4,10 +4,10 @@ name: Publish site
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Csak szimuláció, nem tölt fel semmit"
+      publish:
+        description: "Pipálva: élesen feltölti a casa-verde-2026 mappába. Nincs pipálva: csak szimuláció."
         type: boolean
-        default: true
+        default: false
 
 concurrency:
   group: publish-site
@@ -49,7 +49,7 @@ jobs:
           FTP_DIR: /public_html/casa-verde-2026
           FTP_USER: ${{ vars.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          PUBLISH: ${{ inputs.publish }}
         run: |
           set -euo pipefail
           for v in FTP_USER FTP_PASSWORD; do
@@ -57,7 +57,7 @@ jobs:
           done
 
           MIRROR_OPTS="--reverse --verbose --parallel=4"
-          if [ "$DRY_RUN" = "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --dry-run"; fi
+          if [ "$PUBLISH" != "true" ]; then MIRROR_OPTS="$MIRROR_OPTS --dry-run"; echo "SZIMULÁCIÓ (nincs pipálva a publish)"; else echo "ÉLES FELTÖLTÉS"; fi
 
           lftp -u "$FTP_USER","$FTP_PASSWORD" "$FTP_HOST" <<EOF
           set ftp:ssl-allow yes
@@ -72,5 +72,5 @@ jobs:
       - name: Summary
         run: |
           echo "### Publikálás kész" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Dry run: \`${{ inputs.dry_run }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Publish: \`${{ inputs.publish }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
