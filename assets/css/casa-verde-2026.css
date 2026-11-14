@@ -394,4 +394,4 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .product-card ul{list-style:none;margin:12px 0;padding:0;display:grid;gap:4px;color:var(--muted);font-size:15px}
 .product-card .price{font-size:30px;font-weight:800;line-height:1.1;color:var(--green)}
 .product-card .price small{display:block;margin-top:4px;font-size:13px;font-weight:600;color:var(--muted)}
-.battery-option-kwh{display:block;margin-top:2px;font-size:13px;font-weight:600;color:var(--muted)}
+.battery-option-kwh{display:inline-block;margin-left:8px;padding:3px 10px;border-radius:999px;background:#eaf4df;color:var(--green-dark);font-size:12px;font-weight:700;vertical-align:middle}
