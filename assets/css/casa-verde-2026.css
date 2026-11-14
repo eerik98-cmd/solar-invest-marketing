@@ -310,7 +310,9 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 8px)}
 
 @media (max-width:599px){
   .battery-option{width:158px;min-height:272px;padding:9px;gap:5px}
-  .battery-stage{height:380px;--ring-radius:120px}
+  .battery-stage{height:400px;--ring-radius:120px;overflow:hidden;max-width:100%;width:100%}
+  .battery-option-price{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .battery-option .battery-option-kwh{margin-left:0;padding:2px 8px;font-size:11px}
   .battery-option .battery-art{aspect-ratio:1/1}
   .battery-option-name{font-size:14px}
   .battery-option-type{font-size:12px}
