@@ -402,3 +402,15 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .product-card .price{font-size:30px;font-weight:800;line-height:1.1;color:var(--green)}
 .product-card .price small{display:block;margin-top:4px;font-size:13px;font-weight:600;color:var(--muted)}
 .battery-option-kwh{display:inline-block;margin-left:8px;padding:3px 10px;border-radius:999px;background:#eaf4df;color:var(--green-dark);font-size:12px;font-weight:700;vertical-align:middle}
+
+/* Mobile offers: flat, swipeable row instead of the 3D ring (no overlap, no clipping) */
+@media (max-width:599px){
+  .battery-stage{height:auto!important;max-width:100%;margin:0 0 18px;overflow:hidden;perspective:none;cursor:default;touch-action:pan-x}
+  .battery-ring{position:relative;inset:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 16px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .battery-ring::-webkit-scrollbar{display:none}
+  .battery-platform{display:none}
+  .battery-option{position:relative!important;top:auto!important;left:auto!important;flex:0 0 168px;width:168px;min-height:0;transform:none!important;scroll-snap-align:center;z-index:1!important;opacity:1!important;box-shadow:0 10px 24px rgba(23,51,19,.14)}
+  .battery-option.is-active{border-color:var(--green);border-width:2px}
+  .battery-controls{display:none!important}
+  .battery-offer-summary{margin-top:6px}
+}
