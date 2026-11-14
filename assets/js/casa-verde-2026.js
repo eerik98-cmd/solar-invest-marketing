@@ -319,7 +319,18 @@
     }
     if (batteryOptions.length) setBattery(initialBattery);
     if (mobileRow.matches && batteryOptions.length) window.setTimeout(function () { centerBattery(selectedBatteryIndex); }, 80);
-    window.addEventListener("load", function () { if (mobileRow.matches) centerBattery(selectedBatteryIndex); });
+    var relayoutBattery = function () {
+      if (!batteryOptions.length) return;
+      renderBatteryPositions(0);
+      if (mobileRow.matches) centerBattery(selectedBatteryIndex);
+    };
+    window.addEventListener("load", relayoutBattery);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayoutBattery);
+    var relayoutTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(relayoutTimer);
+      relayoutTimer = setTimeout(relayoutBattery, 120);
+    });
 
     var dragStart = null;
     var suppressBatteryClick = false;
