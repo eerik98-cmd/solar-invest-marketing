@@ -1,0 +1,4 @@
+# A régi .htaccess átirányítások közül azok, amelyek létező oldalra mutatnak
+/home        /ro/index.html   301
+/home/ro     /ro/index.html   301
+/home/hu     /hu/index.html   301

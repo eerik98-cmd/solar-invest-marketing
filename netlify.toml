@@ -1,0 +1,4 @@
+[build]
+  # Csak a publikus oldal kerül ki: nincs .git, .github, README, CLAUDE.md, send_forms.php
+  command = "rm -rf public && mkdir public && cp -r index.html ro hu assets uploads _redirects public/"
+  publish = "public"
