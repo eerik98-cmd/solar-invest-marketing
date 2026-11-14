@@ -246,6 +246,7 @@
         batteryOptions[i].setAttribute("aria-pressed", String(i === selectedBatteryIndex));
       }
       renderBatteryPositions(0);
+      if (mobileRow && mobileRow.matches && typeof centerBattery === "function") centerBattery(selectedBatteryIndex);
       if (selectedModel) selectedModel.textContent = selectedBattery.getAttribute("data-model");
       if (selectedType) selectedType.textContent = selectedBattery.getAttribute("data-type");
       if (selectedPrice) selectedPrice.textContent = fmt(Number(selectedBattery.getAttribute("data-price")) || 0, 0) + " " + T.lei;
@@ -272,13 +273,59 @@
         setBattery(Array.prototype.indexOf.call(batteryOptions, event.currentTarget));
       });
     }
+    var mobileRow = window.matchMedia("(max-width:599px)");
+    var batteryRing = batteryStage ? batteryStage.querySelector(".battery-ring") : null;
+    var centerBattery = function (i) {
+      if (!batteryRing || !batteryOptions[i]) return;
+      var el = batteryOptions[i];
+      batteryRing.scrollTo({ left: el.offsetLeft - (batteryRing.clientWidth - el.offsetWidth) / 2, behavior: "smooth" });
+    };
+    if (mobileRow.matches && batteryRing && batteryOptions.length) {
+      var baseCount = batteryOptions.length;
+      for (var cl = 0; cl < baseCount; cl++) {
+        (function (idx) {
+          var clone = batteryOptions[idx].cloneNode(true);
+          clone.setAttribute("aria-hidden", "true");
+          clone.setAttribute("tabindex", "-1");
+          clone.removeAttribute("data-battery-option");
+          clone.classList.remove("is-active");
+          clone.addEventListener("click", function () { batteryOptions[idx].click(); });
+          batteryRing.appendChild(clone);
+        })(cl);
+      }
+      var loopWidth = function () {
+        var all = batteryRing.querySelectorAll(".battery-option");
+        return all[baseCount].offsetLeft - all[0].offsetLeft;
+      };
+      var loopTimer = null;
+      batteryRing.addEventListener("scroll", function () {
+        clearTimeout(loopTimer);
+        loopTimer = setTimeout(function () {
+          var lw = loopWidth();
+          if (batteryRing.scrollLeft >= lw) batteryRing.scrollLeft -= lw;
+          else if (batteryRing.scrollLeft < 1) batteryRing.scrollLeft += lw;
+          // select the card closest to the centre
+          var all = batteryRing.querySelectorAll(".battery-option");
+          var mid = batteryRing.scrollLeft + batteryRing.clientWidth / 2;
+          var best = 0, bestD = Infinity;
+          for (var k = 0; k < all.length; k++) {
+            var d = Math.abs(all[k].offsetLeft + all[k].offsetWidth / 2 - mid);
+            if (d < bestD) { bestD = d; best = k; }
+          }
+          var idx = best % baseCount;
+          if (idx !== selectedBatteryIndex) setBattery(idx);
+        }, 140);
+      }, { passive: true });
+    }
     if (batteryOptions.length) setBattery(initialBattery);
+    if (mobileRow.matches && batteryOptions.length) window.setTimeout(function () { centerBattery(selectedBatteryIndex); }, 80);
 
     var dragStart = null;
     var suppressBatteryClick = false;
     if (batteryStage && batteryOptions.length) {
       batteryStage.addEventListener("dragstart", function (event) { event.preventDefault(); });
       batteryStage.addEventListener("pointerdown", function (event) {
+        if (mobileRow.matches) return;
         dragStart = { x: event.clientX };
         batteryStage.classList.add("is-dragging");
         batteryStage.setPointerCapture(event.pointerId);
