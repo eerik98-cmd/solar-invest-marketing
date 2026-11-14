@@ -406,7 +406,7 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 /* Mobile offers: flat, swipeable row instead of the 3D ring (no overlap, no clipping) */
 @media (max-width:599px){
   .battery-stage{height:auto!important;max-width:100%;margin:0 0 18px;overflow:hidden;perspective:none;cursor:default;touch-action:pan-x}
-  .battery-ring{position:relative;inset:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 16px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .battery-ring{position:relative;inset:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px calc(50% - 84px) 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .battery-ring::-webkit-scrollbar{display:none}
   .battery-platform{display:none}
   .battery-option{position:relative!important;top:auto!important;left:auto!important;flex:0 0 168px;width:168px;min-height:0;transform:none!important;scroll-snap-align:center;z-index:1!important;opacity:1!important;box-shadow:0 10px 24px rgba(23,51,19,.14)}
