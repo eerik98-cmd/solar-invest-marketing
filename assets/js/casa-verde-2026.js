@@ -19,7 +19,8 @@
       minKwh: "A jogosultsághoz legalább 10 kWh tárolókapacitás szükséges.",
       noFin: "Add meg a kért támogatás összegét.",
       finCapped: "A támogatás nem haladhatja meg a projekt értékének 75%-át, és a 15 000 lejt sem. {own} lej önerőnél a maximum {max} lej, a számítás ezt az összeget használja.",
-      capMissing: "Még {n} kWh hiányzik a 20 kWh-hoz, vagyis a maximális kapacitáspontszámhoz.",
+      capMissing: "Még {n} kWh hiányzik a 15 kWh-hoz, vagyis a maximális kapacitáspontszámhoz.",
+      priorTip: "Korábbi akkumulátor-támogatás: −10 pont.",
       ownFull: "Az önerő-pontszám maximális.",
       ownA: "Csökkentsd a támogatást {x} lejre, és tartsd meg a jelenlegi önerőt.",
       ownB: "Vagy tartsd meg a {fin} lej támogatást, és emeld az önerőt {x} lejre.",
@@ -37,7 +38,8 @@
       minKwh: "Pentru eligibilitate este necesară o capacitate de minimum 10 kWh.",
       noFin: "Introdu suma finanțării solicitate.",
       finCapped: "Finanțarea nu poate depăși 75% din valoarea proiectului și nici 15.000 lei. La o contribuție proprie de {own} lei, maximul admis este {max} lei, iar calculul folosește această sumă.",
-      capMissing: "Îți mai lipsesc {n} kWh pentru a ajunge la 20 kWh și la punctajul maxim pentru capacitate.",
+      capMissing: "Îți mai lipsesc {n} kWh pentru a ajunge la 15 kWh și la punctajul maxim pentru capacitate.",
+      priorTip: "Finanțare anterioară cu baterii: −10 puncte.",
       ownFull: "Punctajul pentru contribuția proprie este maxim.",
       ownA: "Reduci finanțarea AFM la {x} lei, păstrând contribuția actuală.",
       ownB: "Sau păstrezi finanțarea de {fin} lei și crești contribuția proprie la {x} lei.",
@@ -126,6 +128,7 @@
     var outs = calc.querySelectorAll("[data-out]");
     for (var o = 0; o < outs.length; o++) out[outs[o].getAttribute("data-out")] = outs[o];
     var bars = calc.querySelectorAll("[data-bar]");
+    var priorBoxes = document.querySelectorAll("[data-prior-funding]");
 
     var addTip = function (text, cls) {
       var li = document.createElement("li");
@@ -147,9 +150,12 @@
 
       var finMax = Math.min(15000, own * 3);
       var finEff = Math.min(fin, finMax);
-      var capPts = Math.min(50, 2.5 * kwh);
-      var ownPts = finEff > 0 ? Math.min(50, 30 * (own / finEff)) : 0;
-      var total = capPts + ownPts;
+      var capPts = Math.min(50, (50 / 15) * kwh);
+      var ownPts = finEff > 0 ? Math.min(50, 50 * (own / finEff) / 1.5) : 0;
+      var prior = false;
+      for (var pb = 0; pb < priorBoxes.length; pb++) if (priorBoxes[pb].checked) prior = true;
+      var penalty = prior ? 10 : 0;
+      var total = Math.max(0, capPts + ownPts - penalty);
       var project = own + finEff;
       var maxEligible = 1500 * kwh;
 
@@ -173,6 +179,7 @@
         bars[b].style.width = Math.min(100, pct) + "%";
       }
 
+      if (prior) addTip(T.priorTip, "is-warn");
       if (kwh > 0 && kwh < 10) addTip(T.minKwh, "is-warn");
       if (fin <= 0) addTip(T.noFin, "is-warn");
       if (fin > finMax && own > 0) addTip(fill(T.finCapped, { own: fmt(own, 0), max: fmt(finMax, 0) }), "is-warn");
@@ -183,10 +190,10 @@
       if (total >= 99.95) {
         addTip(T.full, "is-good");
       } else {
-        if (kwh < 20) addTip(fill(T.capMissing, { n: fmt(20 - kwh, 1) }));
+        if (kwh < 15) addTip(fill(T.capMissing, { n: fmt(15 - kwh, 1) }));
         if (finEff > 0 && ownPts < 49.95) {
-          addTip(fill(T.ownA, { x: fmt(own * 0.6, 0) }));
-          addTip(fill(T.ownB, { fin: fmt(finEff, 0), x: fmt(finEff * (5 / 3), 0) }));
+          addTip(fill(T.ownA, { x: fmt(own / 1.5, 0) }));
+          addTip(fill(T.ownB, { fin: fmt(finEff, 0), x: fmt(finEff * 1.5, 0) }));
         } else if (finEff > 0) {
           addTip(T.ownFull, "is-good");
         }
@@ -339,6 +346,7 @@
         applyPreset(event.currentTarget);
       });
     }
+    for (var pbi = 0; pbi < priorBoxes.length; pbi++) priorBoxes[pbi].addEventListener("change", recalc);
     recalc();
   }
 

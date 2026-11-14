@@ -13,8 +13,8 @@
     <link rel="icon" href="../assets/img/logo/prlogo.png">
     <link rel="alternate" hreflang="ro" href="../ro/index.html">
     <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
-    <link rel="stylesheet" href="../assets/css/casa-verde-2026.css?v=20261114a">
-    <script src="../assets/js/casa-verde-2026.js?v=20261113a" defer></script>
+    <link rel="stylesheet" href="../assets/css/casa-verde-2026.css?v=20261114b">
+    <script src="../assets/js/casa-verde-2026.js?v=20261114b" defer></script>
 </head>
 <!--
     FUNKCIÓK BE- ÉS KIKAPCSOLÁSA (mindkét nyelvi fájlban ugyanígy állítsd: hu/index.html és ro/index.html)
@@ -141,6 +141,7 @@
                         <input id="calc-own" class="own-range" type="range" inputmode="numeric" min="3400" max="12240" step="10" value="3400" aria-label="Önerő lejben">
                         <div class="range-limits"><small data-own-min>3 400 lej · 25%</small><small data-own-max>12 240 lej · 90%</small></div>
                         <p class="own-share-label">A rendszer árának ennyi része: <strong data-own-share>25%</strong></p>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Korábban másik támogatási programon keresztül már kaptam akkumulátort (−10 pont)</span></label>
                     </div>
                     <a class="btn btn-primary battery-select-cta" data-feature="flux" data-flux href="https://solarflux-main.vercel.app/green-house-configurator">Ajánlatot kérek</a>
                 </div>
@@ -255,6 +256,7 @@
                                 <div class="score-part"><p><span>Önerő</span><span><b data-out="own">0</b> / 50</span></p><div class="meter"><i data-bar="own"></i></div></div>
                             </div>
                         </div>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Korábban másik támogatási programon keresztül már kaptam akkumulátort (−10 pont)</span></label>
                         <ul class="calc-tips" id="calc-tips"></ul>
                         <dl class="calc-lines">
                             <div><dt>A projekt teljes értéke</dt><dd data-out="project"></dd></div>

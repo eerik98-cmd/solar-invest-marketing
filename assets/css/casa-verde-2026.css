@@ -196,6 +196,8 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 8px)}
 .pill input[value="0"]:checked+span{border-color:var(--orange);background:#fff1de;color:#7a4300}
 .pill input:focus-visible+span{outline:3px solid var(--orange);outline-offset:2px}
 .check-result{margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--bg);color:var(--muted);font-size:15px;line-height:1.5}
+.prior-funding{display:flex;gap:10px;align-items:flex-start;margin:14px 0;color:var(--green-deep);font-size:14px;font-weight:600;line-height:1.35;cursor:pointer}
+.prior-funding input{margin-top:3px;flex:0 0 auto;accent-color:var(--green)}
 .check-result[data-state="ok"]{background:#e3f4d4;color:var(--green-deep)}
 .check-result[data-state="maybe"]{background:#fff1de;color:#7a4300}
 
