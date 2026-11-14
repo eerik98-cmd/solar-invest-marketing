@@ -253,13 +253,13 @@
       if (inKwh && inOwn) {
         var price = Number(selectedBattery.getAttribute("data-price")) || 0;
         var minimumOwn = Math.ceil(Math.max(price * 0.25, price - 15000) / 10) * 10;
-        var maximumOwn = Math.floor(price * 0.6 / 10) * 10;
+        var maximumOwn = Math.floor(price / 10) * 10;
         inKwh.value = selectedBattery.getAttribute("data-kwh");
         inOwn.min = minimumOwn;
         inOwn.max = maximumOwn;
         inOwn.value = minimumOwn;
         if (ownMin) ownMin.textContent = fmt(minimumOwn, 0) + " " + T.lei + " · 25%";
-        if (ownMax) ownMax.textContent = fmt(maximumOwn, 0) + " " + T.lei + " · 60%";
+        if (ownMax) ownMax.textContent = fmt(maximumOwn, 0) + " " + T.lei + " · 100%";
       }
       recalc();
       updateFluxLinks();
