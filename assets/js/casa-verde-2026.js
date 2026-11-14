@@ -319,6 +319,7 @@
     }
     if (batteryOptions.length) setBattery(initialBattery);
     if (mobileRow.matches && batteryOptions.length) window.setTimeout(function () { centerBattery(selectedBatteryIndex); }, 80);
+    window.addEventListener("load", function () { if (mobileRow.matches) centerBattery(selectedBatteryIndex); });
 
     var dragStart = null;
     var suppressBatteryClick = false;
