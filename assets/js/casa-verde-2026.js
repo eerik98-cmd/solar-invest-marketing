@@ -425,23 +425,43 @@
   }
 
   updateFluxLinks();
-  /* Portfolio carousel: prev/next scroll one card and loop at the ends; swipe is native. */
+  /* Portfolio carousel: endless loop. Cards are cloned once at the end; when the
+     scroll position passes one full set, it jumps back by one set (same content, no visible jump). */
   var refCarousels = document.querySelectorAll("[data-carousel]");
   for (var rc = 0; rc < refCarousels.length; rc++) {
     (function (root) {
       var track = root.querySelector("[data-carousel-track]");
       if (!track) return;
+      var originals = track.querySelectorAll(".ref-card");
+      var count = originals.length;
+      if (!count) return;
+      for (var k = 0; k < count; k++) {
+        var clone = originals[k].cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+      }
+      var setWidth = function () {
+        var all = track.querySelectorAll(".ref-card");
+        return all[count].offsetLeft - all[0].offsetLeft;
+      };
+      var stepWidth = function () {
+        return track.querySelector(".ref-card").getBoundingClientRect().width + 18;
+      };
+      var wrap = function () {
+        var sw = setWidth();
+        if (track.scrollLeft >= sw) track.scrollLeft -= sw;
+        else if (track.scrollLeft < 1) track.scrollLeft += sw;
+      };
+      var timer = null;
+      track.addEventListener("scroll", function () {
+        clearTimeout(timer);
+        timer = setTimeout(wrap, 160);
+      }, { passive: true });
       var stepBy = function (dir) {
-        var card = track.querySelector(".ref-card");
-        var amount = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
-        var maxScroll = track.scrollWidth - track.clientWidth;
-        if (dir > 0 && track.scrollLeft >= maxScroll - 4) {
-          track.scrollTo({ left: 0, behavior: "smooth" });
-        } else if (dir < 0 && track.scrollLeft <= 4) {
-          track.scrollTo({ left: maxScroll, behavior: "smooth" });
-        } else {
-          track.scrollBy({ left: dir * amount, behavior: "smooth" });
-        }
+        var sw = setWidth();
+        if (dir > 0 && track.scrollLeft >= sw) track.scrollLeft -= sw;
+        if (dir < 0 && track.scrollLeft < stepWidth()) track.scrollLeft += sw;
+        track.scrollBy({ left: dir * stepWidth(), behavior: "smooth" });
       };
       var prevBtn = root.querySelector("[data-carousel-prev]");
       var nextBtn = root.querySelector("[data-carousel-next]");
