@@ -378,3 +378,5 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .doc-list li{text-align:left}
 .doc-note{margin:20px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);opacity:.6}
 .doc-download{margin-top:10px}
+.info-card ul.tips-bullets{list-style:disc;padding-left:20px;margin:10px 0 12px}
+.info-card ul.tips-bullets li{margin:4px 0;padding:0}
