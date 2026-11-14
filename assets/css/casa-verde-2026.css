@@ -371,3 +371,6 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
   body:not([data-features~="calculator"]) .tool-grid{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto}
 }
 .doc-download{margin-top:18px;width:100%;justify-content:center}
+.doc-list{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:doc;text-align:center}
+.doc-list li{counter-increment:doc;padding:0;text-align:center;line-height:1.45}
+.doc-list li::before{content:counter(doc) ". ";font-weight:800;color:var(--green)}
