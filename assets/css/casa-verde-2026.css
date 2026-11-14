@@ -370,3 +370,4 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
   body:not([data-features~="eligibility"]) .tool-grid,
   body:not([data-features~="calculator"]) .tool-grid{grid-template-columns:minmax(0,1fr);max-width:760px;margin-left:auto;margin-right:auto}
 }
+.doc-download{margin-top:18px;width:100%;justify-content:center}
