@@ -425,4 +425,21 @@
   }
 
   updateFluxLinks();
+  /* Portfolio carousel: prev/next buttons scroll one card; touch/trackpad swipe is native. */
+  var refCarousels = document.querySelectorAll("[data-carousel]");
+  for (var rc = 0; rc < refCarousels.length; rc++) {
+    (function (root) {
+      var track = root.querySelector("[data-carousel-track]");
+      if (!track) return;
+      var stepBy = function (dir) {
+        var card = track.querySelector(".ref-card");
+        var amount = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
+        track.scrollBy({ left: dir * amount, behavior: "smooth" });
+      };
+      var prevBtn = root.querySelector("[data-carousel-prev]");
+      var nextBtn = root.querySelector("[data-carousel-next]");
+      if (prevBtn) prevBtn.addEventListener("click", function () { stepBy(-1); });
+      if (nextBtn) nextBtn.addEventListener("click", function () { stepBy(1); });
+    })(refCarousels[rc]);
+  }
 })();

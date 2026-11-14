@@ -380,3 +380,7 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .doc-download{margin-top:10px}
 .info-card ul.tips-bullets{list-style:disc;padding-left:20px;margin:10px 0 12px}
 .info-card ul.tips-bullets li{margin:4px 0;padding:0}
+.ref-controls{display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px}
+.ref-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ref-track::-webkit-scrollbar{display:none}
+.ref-track .ref-card{flex:0 0 min(80vw,340px);scroll-snap-align:start}
