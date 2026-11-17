@@ -182,11 +182,11 @@
       out.project.textContent = fmt(project, 0) + " " + T.lei;
       out.fin.textContent = fmt(finEff, 0) + " " + T.lei;
       out.max.textContent = fmt(maxEligible, 0) + " " + T.lei;
-      out.share.textContent = project > 0 ? fmt((own / project) * 100, 1) + "%" : "–";
+      out.share.textContent = project > 0 ? fmt(Math.floor((own / project) * 1000) / 10, 1) + "%" : "–";
       if (ownValue) ownValue.textContent = fmt(own, 0) + " " + T.lei;
       if (ownShare && selectedBattery) {
         var selectedPriceForShare = Number(selectedBattery.getAttribute("data-price")) || 0;
-        ownShare.textContent = selectedPriceForShare > 0 ? fmt((own / selectedPriceForShare) * 100, 1) + "%" : "–";
+        ownShare.textContent = selectedPriceForShare > 0 ? fmt(Math.floor((own / selectedPriceForShare) * 1000) / 10, 1) + "%" : "–";
       }
       if (batteryScore) batteryScore.textContent = fmt(total, 2);
 
