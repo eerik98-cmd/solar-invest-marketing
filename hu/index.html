@@ -129,7 +129,7 @@
                     </div>
                     <div class="battery-score-summary">
                         <span>Becsült pontszám</span>
-                        <strong><output data-battery-score>60</output><small>/ 100</small></strong>
+                        <strong><output data-battery-score>75</output><small>/ 100</small></strong>
                     </div>
                     <div class="battery-own-control field">
                         <label for="calc-own">Önerő</label>
@@ -137,7 +137,7 @@
                         <input id="calc-own" class="own-range" type="range" inputmode="numeric" min="3400" max="14090" step="10" value="3400" aria-label="Önerő lejben">
                         <div class="range-limits"><small data-own-min>3 400 lej · 25%</small><small data-own-max>13 232 lej · 100%</small></div>
                         <p class="own-share-label">A rendszer árának ennyi része: <strong data-own-share>25%</strong></p>
-                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Korábban másik támogatási programon keresztül már kaptam akkumulátort (−10 pont)</span></label>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Kaptam már közpénzes támogatást energiatárolóra (elveszítem a 25 pontot)</span></label>
                     </div>
                     <a class="btn btn-primary battery-select-cta" data-feature="flux" data-flux href="https://solarflux.solar-invest.ro/green-house-configurator">Ajánlatot kérek</a>
                 </div>
@@ -160,10 +160,11 @@
 
                 <div class="points points--ui-hidden">
                     <h3>Pontozás: maximum 100 pont</h3>
-                    <p>Figyelem: a pontszám nő, ha kevesebb támogatást kérsz, mert az önerő és a támogatás aránya számít.</p>
+                    <p>A 2.314/2026-os rendelet szerint (Monitorul Oficial 953/2026.11.16.). Figyelem: az önerő pontszáma az önerő és az AFM-támogatás arányából számítódik, ezért akkor is nő, ha kevesebb támogatást kérsz.</p>
                     <div class="points-grid">
-                        <div class="point"><b>50 <small>pont</small></b><span><strong>Tárolókapacitás.</strong> Minden kWh 2,5 pontot ér; 20 kWh-nál kapod meg a maximális 50 pontot.</span></div>
-                        <div class="point"><b>50 <small>pont</small></b><span><strong>Önerő.</strong> 30 × (önerő ÷ támogatás); a maximum akkor jár, ha az önerő legalább 1,67-szerese a kért támogatásnak.</span></div>
+                        <div class="point"><b>40 <small>pont</small></b><span><strong>Tárolókapacitás.</strong> 4 × kWh − 20: 10 kWh 20 pontot ér, 15 kWh-tól jár a maximális 40 pont.</span></div>
+                        <div class="point"><b>35 <small>pont</small></b><span><strong>Önerő.</strong> 37,5 × (önerő ÷ AFM-támogatás) − 2,5, 10 és 35 pont között. A minimális 25% önerő 10 pontot ér, a maximum akkor jár, ha az önerő legalább akkora, mint az AFM-támogatás.</span></div>
+                        <div class="point"><b>25 <small>pont</small></b><span><strong>Nincs korábbi támogatás.</strong> Ha eddig nem kaptál közpénzt energiatárolóra. Aki kapott, továbbra is jelentkezhet, de erre 0 pontot kap.</span></div>
                     </div>
                     <p class="points-tip"><strong>Holtverseny esetén</strong> a sorrend: az önerő összege, a tárolókapacitás, az energiatárolásra kapott korábbi közpénz támogatás, végül a jelentkezés dátuma és időpontja.</p>
                 </div>
@@ -209,7 +210,7 @@
                     </article>
                     <article class="info-card">
                         <h3>2. A maximális pontszám</h3>
-                        <p>A maximális ponthoz legalább 15 kWh kell, és az önerőt körülbelül a projekt értékének 60%-ára kell emelni. A támogatást a felső határ alatt is kérheted.</p>
+                        <p>A maximális ponthoz legalább 15 kWh kell, és az önerőnek el kell érnie az AFM-támogatást, vagyis a projekt értékének legalább 50%-át. A támogatást a felső határ alatt is kérheted.</p>
                     </article>
                     <article class="info-card">
                         <h3>3. Huawei inverter van nálad?</h3>
@@ -266,7 +267,7 @@
                             <button class="chip" type="button" data-preset data-kwh="10" data-fin="11250" data-own="3750" aria-pressed="false">10 kWh</button>
                             <button class="chip" type="button" data-preset data-kwh="15" data-fin="15000" data-own="7500" aria-pressed="false">15 kWh</button>
                             <button class="chip" type="button" data-preset data-kwh="20" data-fin="15000" data-own="15000" aria-pressed="false">20 kWh</button>
-                            <button class="chip" type="button" data-preset data-kwh="20" data-fin="9000" data-own="15000" aria-pressed="false">100 pontos terv</button>
+                            <button class="chip" type="button" data-preset data-kwh="15" data-fin="11250" data-own="11250" aria-pressed="false">100 pontos terv</button>
                         </div>
                         <div class="calc-fields">
                             <div class="field">
@@ -284,11 +285,12 @@
                             <div class="score-main"><strong data-out="score">0</strong><span>/ 100 pont</span></div>
                             <div class="meter"><i data-bar="total"></i></div>
                             <div class="score-parts">
-                                <div class="score-part"><p><span>Tárolókapacitás</span><span><b data-out="cap">0</b> / 50</span></p><div class="meter"><i data-bar="cap"></i></div></div>
-                                <div class="score-part"><p><span>Önerő</span><span><b data-out="own">0</b> / 50</span></p><div class="meter"><i data-bar="own"></i></div></div>
+                                <div class="score-part"><p><span>Tárolókapacitás</span><span><b data-out="cap">0</b> / 40</span></p><div class="meter"><i data-bar="cap"></i></div></div>
+                                <div class="score-part"><p><span>Önerő</span><span><b data-out="own">0</b> / 35</span></p><div class="meter"><i data-bar="own"></i></div></div>
+                                <div class="score-part"><p><span>Nincs korábbi tárolós támogatás</span><span><b data-out="prior">25</b> / 25</span></p><div class="meter"><i data-bar="prior"></i></div></div>
                             </div>
                         </div>
-                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Korábban másik támogatási programon keresztül már kaptam akkumulátort (−10 pont)</span></label>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Kaptam már közpénzes támogatást energiatárolóra (elveszítem a 25 pontot)</span></label>
                         <ul class="calc-tips" id="calc-tips"></ul>
                         <dl class="calc-lines">
                             <div><dt>A projekt teljes értéke</dt><dd data-out="project"></dd></div>

@@ -295,7 +295,7 @@ section[id]{scroll-margin-top:calc(var(--header-h) + 8px)}
 @media (min-width:600px){
   .hero-actions{display:flex;flex-wrap:wrap}
   .ref-grid:not(.ref-grid-3){grid-template-columns:1fr 1fr}
-  .points-grid{grid-template-columns:repeat(2,1fr)}
+  .points-grid{grid-template-columns:repeat(3,1fr)}
   .point{flex-direction:column;align-items:flex-start;gap:8px}
   .cta-steps{grid-template-columns:repeat(3,1fr)}
   .calc-fields{grid-template-columns:repeat(2,minmax(0,1fr))}

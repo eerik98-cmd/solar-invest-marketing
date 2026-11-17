@@ -43,6 +43,13 @@ A régi `/casa-verde-2027/` címet a `static-site/.htaccess` átirányítja az �
 
 ## Tartalom frissítése
 
-A program adatai (támogatás, pontozás, dokumentumok) az AFM finanszírozási útmutatójából származnak. A kalkulátor képlete a hatályos 1.904/2026-os miniszteri rendelet (Ordin) 19. cikkét követi, a rendelet szövegével (PDF) egyeztetve: önerő pontja = 30 × (önerő ÷ AFM-támogatás lejben), max. 50; kapacitás = kWh × 2,5, max. 50 (20 kWh felett); a támogatás legfeljebb 15 000 lej és a projekt teljes értékének 75%-a (az önerő háromszorosa), az 1 500 lej/kWh feletti rész és a hibrid inverter az önerőt növeli (5. és 6. cikk). A képlet a PDF-ben képként szerepel, a szövegkinyerés kihagyja. Holtverseny esetén (19. cikk (9)): az önerő összege, a tárolókapacitás, a jelentkezés dátuma és időpontja.
+A program adatai (támogatás, pontozás, dokumentumok) az AFM finanszírozási útmutatójából származnak (Ordin MMAP 1.904/2026, módosítva az Ordin MMAP 2.314/2026-tal, Monitorul Oficial 953/2026.11.16.).
 
-**Függő módosítás:** a minisztérium 2026. nov. 6-án közvitára bocsátott egy módosítási tervezetet, amely a 19. cikk képletét is megváltoztatná (önerő max. 35 pont: `max(0, önerő − 5000) ÷ 10000 × 25 + 10`; kapacitás max. 40 pont: `4 × kWh − 20`, 15 kWh-nál; új 25 pont, ha nem volt korábbi közpénzes tárolótámogatás; holtversenynél a korábbi támogatás is szempont). Amíg nincs elfogadva, a fenti hatályos képlet él. Ha elfogadják, a JS számítását (`recalc`) és a „Pontozás” szekció szövegét mindkét nyelven át kell írni.
+A kalkulátor képlete (19. cikk, a 2.314/2026-os módosítás szerint), max. 100 pont:
+- kapacitás: `min(40, 4 × kWh − 20)`, 10 kWh = 20 pont, 15 kWh-tól 40 pont;
+- önerő: `max(10, min(35, 37,5 × önerő ÷ AFM-támogatás − 2,5))`, 25% önerőnél 10 pont, ha az önerő ≥ AFM-támogatás, 35 pont;
+- korábbi közpénzes tárolótámogatás nélkül 25 pont, különben 0 (a korábbi támogatás nem kizáró ok).
+
+A támogatás legfeljebb 15 000 lej és a projekt teljes értékének 75%-a, az 1 500 lej/kWh feletti rész és a hibrid inverter az önerőt növeli (5. és 6. cikk). Holtverseny esetén: önerő, tárolókapacitás, korábbi tárolós támogatás, végül a jelentkezés dátuma és időpontja.
+
+Megjegyzés: az önerő-képletet a módosító rendeletet idéző források alapján vettük át; az AFM 2026.11.17-i közleménye (10 pont 5 000 lej, 35 pont 15 000 lej önerőnél 15 000 lej támogatás mellett) ezzel egyezik. A rendelet PDF-jével még egyeztetni kell.

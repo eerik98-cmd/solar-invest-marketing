@@ -20,10 +20,11 @@
       noFin: "Add meg a kért támogatás összegét.",
       finCapped: "A támogatás nem haladhatja meg a projekt értékének 75%-át, és a 15 000 lejt sem. {own} lej önerőnél a maximum {max} lej, a számítás ezt az összeget használja.",
       capMissing: "Még {n} kWh hiányzik a 15 kWh-hoz, vagyis a maximális kapacitáspontszámhoz.",
-      priorTip: "Korábbi akkumulátor-támogatás: −10 pont.",
+      priorTip: "Korábbi tárolós támogatás miatt 0 pont jár a 25-ből.",
       ownFull: "Az önerő-pontszám maximális.",
       ownA: "Csökkentsd a támogatást {x} lejre, és tartsd meg a jelenlegi önerőt.",
       ownB: "Vagy tartsd meg a {fin} lej támogatást, és emeld az önerőt {x} lejre.",
+      ownHalf: "Emeld az önerőt legalább {x} lejre (a projekt értékének fele), így a támogatás nem lesz nagyobb az önerőnél, és megkapod a maximális 35 pontot.",
       full: "Ezzel a tervvel a maximális 100 pontot éred el!",
       overCap: "A projekt értéke ({v} lej) meghaladja a {kwh} kWh-ra számolt elszámolható felső határt ({c} lej). A felette lévő összeg nem elszámolható, saját forrásból fizetendő.",
       mailSubject: "Casa Verde akkumulátor 2026 ajánlatkérés",
@@ -39,10 +40,11 @@
       noFin: "Introdu suma finanțării solicitate.",
       finCapped: "Finanțarea nu poate depăși 75% din valoarea proiectului și nici 15.000 lei. La o contribuție proprie de {own} lei, maximul admis este {max} lei, iar calculul folosește această sumă.",
       capMissing: "Îți mai lipsesc {n} kWh pentru a ajunge la 15 kWh și la punctajul maxim pentru capacitate.",
-      priorTip: "Finanțare anterioară cu baterii: −10 puncte.",
+      priorTip: "Ai primit deja finanțare pentru stocare: 0 din 25 de puncte la acest criteriu.",
       ownFull: "Punctajul pentru contribuția proprie este maxim.",
       ownA: "Reduci finanțarea AFM la {x} lei, păstrând contribuția actuală.",
       ownB: "Sau păstrezi finanțarea de {fin} lei și crești contribuția proprie la {x} lei.",
+      ownHalf: "Crește contribuția proprie la cel puțin {x} lei (jumătate din valoarea proiectului): finanțarea AFM nu mai depășește contribuția și primești maximul de 35 de puncte.",
       full: "Cu acest plan obții punctajul maxim de 100 de puncte!",
       overCap: "Valoarea proiectului ({v} lei) depășește plafonul eligibil calculat pentru {kwh} kWh ({c} lei). Suma care depășește plafonul nu este eligibilă și se suportă din surse proprii.",
       mailSubject: "Casa Verde Baterii 2026 - cerere de ofertă",
@@ -163,18 +165,20 @@
 
       var finMax = Math.min(15000, own * 3);
       var finEff = Math.min(fin, finMax);
-      var capPts = Math.min(50, (50 / 15) * kwh);
-      var ownPts = finEff > 0 ? Math.min(50, 50 * (own / finEff) / 1.5) : 0;
+      /* Ordin MMAP 2.314/2026 (MO 953/16.11.2026), art. 19 */
+      var capPts = kwh >= 10 ? Math.min(40, 4 * kwh - 20) : 0;
+      var ownPts = finEff > 0 ? Math.max(10, Math.min(35, 37.5 * own / finEff - 2.5)) : 0;
       var prior = false;
       for (var pb = 0; pb < priorBoxes.length; pb++) if (priorBoxes[pb].checked) prior = true;
-      var penalty = prior ? 10 : 0;
-      var total = Math.max(0, capPts + ownPts - penalty);
+      var priorPts = prior ? 0 : 25;
+      var total = capPts + ownPts + priorPts;
       var project = own + finEff;
       var maxEligible = 1500 * kwh;
 
       out.score.textContent = fmt(total, 2);
       out.cap.textContent = fmt(capPts, 2);
       out.own.textContent = fmt(ownPts, 2);
+      if (out.prior) out.prior.textContent = fmt(priorPts, 0);
       out.project.textContent = fmt(project, 0) + " " + T.lei;
       out.fin.textContent = fmt(finEff, 0) + " " + T.lei;
       out.max.textContent = fmt(maxEligible, 0) + " " + T.lei;
@@ -188,7 +192,9 @@
 
       for (var b = 0; b < bars.length; b++) {
         var kind = bars[b].getAttribute("data-bar");
-        var pct = (kind === "total" ? total : kind === "cap" ? capPts : ownPts) / (kind === "total" ? 100 : 50) * 100;
+        var val = kind === "total" ? total : kind === "cap" ? capPts : kind === "prior" ? priorPts : ownPts;
+        var maxPts = kind === "total" ? 100 : kind === "cap" ? 40 : kind === "prior" ? 25 : 35;
+        var pct = val / maxPts * 100;
         bars[b].style.width = Math.min(100, pct) + "%";
       }
 
@@ -204,9 +210,12 @@
         addTip(T.full, "is-good");
       } else {
         if (kwh < 15) addTip(fill(T.capMissing, { n: fmt(15 - kwh, 1) }));
-        if (finEff > 0 && ownPts < 49.95) {
-          addTip(fill(T.ownA, { x: fmt(own / 1.5, 0) }));
-          addTip(fill(T.ownB, { fin: fmt(finEff, 0), x: fmt(finEff * 1.5, 0) }));
+        if (finEff > 0 && own < finEff && selectedBattery) {
+          var halfPrice = Number(selectedBattery.getAttribute("data-price")) || 0;
+          addTip(fill(T.ownHalf, { x: fmt(Math.ceil(Math.max(halfPrice / 2, halfPrice - 15000) / 10) * 10, 0) }));
+        } else if (finEff > 0 && own < finEff) {
+          addTip(fill(T.ownA, { x: fmt(Math.floor(own), 0) }));
+          addTip(fill(T.ownB, { fin: fmt(finEff, 0), x: fmt(Math.ceil(finEff), 0) }));
         } else if (finEff > 0) {
           addTip(T.ownFull, "is-good");
         }
