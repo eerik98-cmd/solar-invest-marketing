@@ -506,6 +506,30 @@
   }
 
   updateFluxLinks();
+
+  /* Facebook explainer video: click-to-load facade, so Facebook loads nothing (no cookies) until the visitor asks. */
+  var fbVideos = document.querySelectorAll("[data-fb-video]");
+  for (var fv = 0; fv < fbVideos.length; fv++) {
+    (function (box) {
+      var btn = box.querySelector("[data-fb-video-play]");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        var href = box.getAttribute("data-href");
+        var src = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(href) + "&show_text=false&autoplay=true&mute=false";
+        var frame = document.createElement("div");
+        frame.className = "explainer-video__frame";
+        var iframe = document.createElement("iframe");
+        iframe.src = src;
+        iframe.title = btn.getAttribute("aria-label") || "Video";
+        iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        frame.appendChild(iframe);
+        box.replaceChild(frame, btn);
+        var cap = box.querySelector("figcaption");
+        if (cap) cap.hidden = true;
+      });
+    })(fbVideos[fv]);
+  }
   /* Portfolio carousel: endless loop. Cards are cloned once at the end; when the
      scroll position passes one full set, it jumps back by one set (same content, no visible jump). */
   var refCarousels = document.querySelectorAll("[data-carousel]");

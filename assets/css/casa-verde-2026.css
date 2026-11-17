@@ -418,3 +418,18 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
   .battery-controls{display:none!important}
   .battery-offer-summary{margin-top:6px}
 }
+
+/* Explainer video (Facebook, loaded only on click) */
+.explainer-video{max-width:760px;margin:0 auto 36px}
+.explainer-video__poster,.explainer-video__frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
+.explainer-video[data-ratio="9:16"] .explainer-video__poster,.explainer-video[data-ratio="9:16"] .explainer-video__frame{max-width:360px;margin:0 auto;aspect-ratio:9/16}
+.explainer-video__poster{display:flex;align-items:flex-end;padding:22px;border:0;background:radial-gradient(circle at 75% 20%,rgba(98,161,49,.55),transparent 55%),linear-gradient(135deg,var(--green-deep),#2c5a1f);color:#fff;font:inherit;text-align:left;cursor:pointer}
+.explainer-video__play{position:absolute;top:50%;left:50%;display:grid;width:78px;height:78px;place-items:center;border-radius:50%;background:#fff;color:var(--green-deep);font-size:26px;transform:translate(-50%,-50%);box-shadow:0 0 0 12px rgba(255,255,255,.18);transition:transform .2s,box-shadow .2s}
+.explainer-video__play i{margin-left:5px}
+.explainer-video__poster:hover .explainer-video__play,.explainer-video__poster:focus-visible .explainer-video__play{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 0 0 18px rgba(255,255,255,.22)}
+.explainer-video__text{display:grid;gap:4px;max-width:75%}
+.explainer-video__text strong{font-size:clamp(17px,2.4vw,22px);line-height:1.25}
+.explainer-video__text span{opacity:.85;font-size:14px}
+.explainer-video__brand{position:absolute;right:20px;bottom:20px;font-size:26px;opacity:.85}
+.explainer-video__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.explainer-video figcaption{margin-top:8px;color:var(--muted);font-size:12px;text-align:center}
