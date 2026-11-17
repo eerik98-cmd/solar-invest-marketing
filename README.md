@@ -29,7 +29,7 @@ Ha az `eligibility` és a `calculator` is ki van kapcsolva, a „Kalkulátor” 
 
 ## solar-flux összekötés
 
-A `data-flux` attribútumú gombok a `https://solarflux-main.vercel.app/green-house-configurator` címre mutatnak. A JS hozzáfűzi a nyelvet és a forrást (`source=casa-verde-2026`), valamint a kiválasztott akkumulátor modelljét, típusát és demóárát (`battery_model`, `battery_type`, `battery_price_demo`), a kapacitást (`battery_kwh`), az önerőt (`own_contribution`), a becsült finanszírozást (`financing_amount`) és a pontszámot (`estimated_score`). A „Vezi oferta” / „Ajánlat megtekintése” gombok az ajánlatok szekcióhoz görgetnek. Ha a `flux` funkció ki van kapcsolva, a `data-fallback="flux"` gomb e-mailes ajánlatkérést biztosít helyette.
+A `data-flux` attribútumú gombok a `https://solarflux.solar-invest.ro/green-house-configurator` címre mutatnak. A JS hozzáfűzi a nyelvet és a forrást (`source=casa-verde-2026`), valamint a kiválasztott akkumulátor modelljét, típusát és demóárát (`battery_model`, `battery_type`, `battery_price_demo`), a kapacitást (`battery_kwh`), az önerőt (`own_contribution`), a becsült finanszírozást (`financing_amount`) és a pontszámot (`estimated_score`). A „Vezi oferta” / „Ajánlat megtekintése” gombok az ajánlatok szekcióhoz görgetnek. Ha a `flux` funkció ki van kapcsolva, a `data-fallback="flux"` gomb e-mailes ajánlatkérést biztosít helyette.
 
 ## Visszaszámláló dátumai
 

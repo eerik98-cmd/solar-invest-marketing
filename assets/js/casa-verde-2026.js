@@ -98,10 +98,23 @@
         url.searchParams.set("estimated_score", fluxState.score.toFixed(2));
       }
       if (selectedBattery) {
+        var bType = selectedBattery.getAttribute("data-type") || "";
+        var bPrice = Number(selectedBattery.getAttribute("data-price")) || 0;
+        var bKwh = Number(selectedBattery.getAttribute("data-kwh")) || 0;
+        var ipMatch = bType.match(/IP\s?(\d+)/i);
         url.searchParams.set("battery_model", selectedBattery.getAttribute("data-model"));
-        url.searchParams.set("battery_type", selectedBattery.getAttribute("data-type"));
-        url.searchParams.set("battery_price_demo", selectedBattery.getAttribute("data-price"));
+        url.searchParams.set("battery_type", bType);
+        url.searchParams.set("battery_ip", ipMatch ? ipMatch[1] : "");
+        url.searchParams.set("battery_kwh_nominal", String(bKwh));
+        url.searchParams.set("battery_price_demo", String(bPrice));
+        if (bKwh > 0) url.searchParams.set("battery_price_per_kwh", String(Math.round(bPrice / bKwh)));
       }
+      var prior = document.querySelector("[data-prior-funding]");
+      var anyPrior = false;
+      var priors = document.querySelectorAll("[data-prior-funding]");
+      for (var pk = 0; pk < priors.length; pk++) if (priors[pk].checked) anyPrior = true;
+      url.searchParams.set("prior_battery_funding", anyPrior ? "1" : "0");
+      if (prior) url.searchParams.set("page", LANG === "hu" ? "hu" : "ro");
       a.href = url.toString();
     }
   }
