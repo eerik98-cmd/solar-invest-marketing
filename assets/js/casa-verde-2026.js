@@ -189,6 +189,7 @@
         ownShare.textContent = selectedPriceForShare > 0 ? fmt(Math.floor((own / selectedPriceForShare) * 1000) / 10, 1) + "%" : "–";
       }
       if (batteryScore) batteryScore.textContent = fmt(total, 2);
+      if (typeof syncMaxScoreBtn === "function") syncMaxScoreBtn();
 
       for (var b = 0; b < bars.length; b++) {
         var kind = bars[b].getAttribute("data-bar");
@@ -382,6 +383,26 @@
     inOwn.addEventListener("input", function () {
       recalc();
     });
+
+    /* "Max points" button: 50% own contribution, so own = AFM financing → 35/35 contribution points. */
+    var maxScoreBtn = document.querySelector("[data-own-max-score]");
+    var syncMaxScoreBtn = function () {
+      if (!maxScoreBtn || !selectedBattery) return;
+      var p = Number(selectedBattery.getAttribute("data-price")) || 0;
+      var half = Math.ceil(p * 0.5 / 10) * 10;
+      maxScoreBtn.classList.toggle("is-active", Number(inOwn.value) === Math.max(Number(inOwn.min), Math.min(Number(inOwn.max), half)));
+    };
+    if (maxScoreBtn) {
+      maxScoreBtn.addEventListener("click", function () {
+        if (!selectedBattery) return;
+        var p = Number(selectedBattery.getAttribute("data-price")) || 0;
+        var half = Math.ceil(p * 0.5 / 10) * 10;
+        inOwn.value = Math.max(Number(inOwn.min), Math.min(Number(inOwn.max), half));
+        recalc();
+        syncMaxScoreBtn();
+      });
+      inOwn.addEventListener("input", syncMaxScoreBtn);
+    }
     calc.addEventListener("submit", function (event) {
       event.preventDefault();
     });
