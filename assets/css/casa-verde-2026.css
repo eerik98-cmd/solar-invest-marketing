@@ -420,7 +420,7 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 }
 
 /* Explainer video (Facebook, loaded only on click) */
-.explainer-video{max-width:760px;margin:0 auto 36px}
+.explainer-video{max-width:760px;margin:36px auto}
 .explainer-video__poster,.explainer-video__frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
 .explainer-video[data-ratio="9:16"] .explainer-video__poster,.explainer-video[data-ratio="9:16"] .explainer-video__frame{max-width:360px;margin:0 auto;aspect-ratio:9/16}
 .explainer-video__poster{display:flex;align-items:flex-end;padding:22px;border:0;background:radial-gradient(circle at 75% 20%,rgba(98,161,49,.55),transparent 55%),linear-gradient(135deg,var(--green-deep),#2c5a1f);color:#fff;font:inherit;text-align:left;cursor:pointer}
