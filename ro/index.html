@@ -129,7 +129,7 @@
                     </div>
                     <div class="battery-score-summary">
                         <span>Punctaj estimat</span>
-                        <strong><output data-battery-score>60</output><small>/ 100</small></strong>
+                        <strong><output data-battery-score>75</output><small>/ 100</small></strong>
                     </div>
                     <div class="battery-own-control field">
                         <label for="calc-own">Contribuția ta proprie</label>
@@ -137,7 +137,7 @@
                         <input id="calc-own" class="own-range" type="range" inputmode="numeric" min="3400" max="14090" step="10" value="3400" aria-label="Contribuția proprie în lei">
                         <div class="range-limits"><small data-own-min>3.400 lei · 25%</small><small data-own-max>13.232 lei · 100%</small></div>
                         <p class="own-share-label">Din valoarea sistemului: <strong data-own-share>25%</strong></p>
-                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Am beneficiat de altă finanțare prin care am primit baterii (−10 puncte)</span></label>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Am primit deja finanțare publică pentru un sistem de stocare (pierd cele 25 de puncte)</span></label>
                     </div>
                     <a class="btn btn-primary battery-select-cta" data-feature="flux" data-flux href="https://solarflux.solar-invest.ro/green-house-configurator">Vreau ofertă</a>
                 </div>
@@ -160,10 +160,11 @@
 
                 <div class="points points--ui-hidden">
                     <h3>Punctaj: maximum 100 de puncte</h3>
-                    <p>Atenție: punctajul crește dacă soliciți mai puțin, pentru că se calculează din raportul dintre contribuția ta și finanțare.</p>
+                    <p>Conform Ordinului nr. 2.314/2026 (Monitorul Oficial nr. 953 din 16.11.2026). Atenție: punctajul pentru contribuție se calculează din raportul dintre contribuția ta și finanțarea AFM, deci crește și dacă soliciți mai puțin.</p>
                     <div class="points-grid">
-                        <div class="point"><b>50 <small>puncte</small></b><span><strong>Capacitate de stocare.</strong> Primești 2,5 puncte pentru fiecare kWh; ajungi la maximum 50 de puncte cu o baterie de 20 kWh.</span></div>
-                        <div class="point"><b>50 <small>puncte</small></b><span><strong>Contribuție proprie.</strong> 30 × (contribuție ÷ finanțare); maximul se atinge când contribuția ta este de cel puțin 1,67 ori finanțarea solicitată.</span></div>
+                        <div class="point"><b>40 <small>puncte</small></b><span><strong>Capacitate de stocare.</strong> 4 × kWh − 20: 10 kWh aduc 20 de puncte, iar de la 15 kWh primești maximum 40 de puncte.</span></div>
+                        <div class="point"><b>35 <small>puncte</small></b><span><strong>Contribuție proprie.</strong> 37,5 × (contribuție ÷ finanțare AFM) − 2,5, între 10 și 35 de puncte. La contribuția minimă de 25% primești 10 puncte, iar maximul se atinge când contribuția ta este cel puțin egală cu finanțarea AFM.</span></div>
+                        <div class="point"><b>25 <small>puncte</small></b><span><strong>Fără finanțare anterioară.</strong> Dacă nu ai primit până acum fonduri publice pentru un sistem de stocare. Cine a primit rămâne eligibil, dar ia 0 puncte aici.</span></div>
                     </div>
                     <p class="points-tip"><strong>La punctaj egal,</strong> departajarea se face în această ordine: contribuția proprie, capacitatea sistemului, finanțările publice anterioare pentru stocare și apoi data și ora înscrierii.</p>
                 </div>
@@ -209,7 +210,7 @@
                     </article>
                     <article class="info-card">
                         <h3>2. Punctajul maxim</h3>
-                        <p>Pentru punctajul maxim, alege minimum 15 kWh și mărește contribuția proprie până la aproximativ 60% din valoarea proiectului. Finanțarea poți să o soliciți și sub plafon.</p>
+                        <p>Pentru punctajul maxim, alege minimum 15 kWh și o contribuție proprie cel puțin egală cu finanțarea AFM, adică minimum 50% din valoarea proiectului. Finanțarea poți să o soliciți și sub plafon.</p>
                     </article>
                     <article class="info-card">
                         <h3>3. Ai invertor Huawei?</h3>
@@ -266,7 +267,7 @@
                             <button class="chip" type="button" data-preset data-kwh="10" data-fin="11250" data-own="3750" aria-pressed="false">10 kWh</button>
                             <button class="chip" type="button" data-preset data-kwh="15" data-fin="15000" data-own="7500" aria-pressed="false">15 kWh</button>
                             <button class="chip" type="button" data-preset data-kwh="20" data-fin="15000" data-own="15000" aria-pressed="false">20 kWh</button>
-                            <button class="chip" type="button" data-preset data-kwh="20" data-fin="9000" data-own="15000" aria-pressed="false">Plan de 100 de puncte</button>
+                            <button class="chip" type="button" data-preset data-kwh="15" data-fin="11250" data-own="11250" aria-pressed="false">Plan de 100 de puncte</button>
                         </div>
                         <div class="calc-fields">
                             <div class="field">
@@ -284,11 +285,12 @@
                             <div class="score-main"><strong data-out="score">0</strong><span>/ 100 puncte</span></div>
                             <div class="meter"><i data-bar="total"></i></div>
                             <div class="score-parts">
-                                <div class="score-part"><p><span>Capacitate de stocare</span><span><b data-out="cap">0</b> / 50</span></p><div class="meter"><i data-bar="cap"></i></div></div>
-                                <div class="score-part"><p><span>Contribuție proprie</span><span><b data-out="own">0</b> / 50</span></p><div class="meter"><i data-bar="own"></i></div></div>
+                                <div class="score-part"><p><span>Capacitate de stocare</span><span><b data-out="cap">0</b> / 40</span></p><div class="meter"><i data-bar="cap"></i></div></div>
+                                <div class="score-part"><p><span>Contribuție proprie</span><span><b data-out="own">0</b> / 35</span></p><div class="meter"><i data-bar="own"></i></div></div>
+                                <div class="score-part"><p><span>Fără finanțare anterioară pentru stocare</span><span><b data-out="prior">25</b> / 25</span></p><div class="meter"><i data-bar="prior"></i></div></div>
                             </div>
                         </div>
-                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Am beneficiat de altă finanțare prin care am primit baterii (−10 puncte)</span></label>
+                        <label class="prior-funding"><input type="checkbox" data-prior-funding><span>Am primit deja finanțare publică pentru un sistem de stocare (pierd cele 25 de puncte)</span></label>
                         <ul class="calc-tips" id="calc-tips"></ul>
                         <dl class="calc-lines">
                             <div><dt>Valoarea totală a proiectului</dt><dd data-out="project"></dd></div>
