@@ -437,3 +437,5 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .afm-upload p{margin-bottom:6px}
 .afm-upload a:not(.btn){color:var(--green-deep);font-weight:700}
 .afm-upload .explainer-video{margin:20px auto}
+.explainer-video__fallback{margin:10px 0 0;text-align:center;font-size:14px}
+.explainer-video__fallback a{color:var(--green-dark);font-weight:700}
