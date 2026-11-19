@@ -517,7 +517,8 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .pachet-pick .battery-pick-row td.r{white-space:nowrap}
 .pachet-pick .battery-pick-type{margin-top:2px}
 @media (max-width:760px){
-  .pachet-pick .battery-pick-table th:nth-child(2),.pachet-pick .battery-pick-table td:nth-child(2){display:none}
+  .pachet-pick .battery-pick-table th:nth-child(3),.pachet-pick .battery-pick-table td:nth-child(3){display:none}
+  .pachet-pick .battery-pick-table td:nth-child(2)::after{content:" / " attr(data-bat)}
   .pachet-pick .battery-pick-table{font-size:13px}
   .pachet-pick .battery-pick-row td{padding:12px 8px}
   .pachet-pick .battery-pick-table th{padding:10px 8px}
@@ -538,3 +539,6 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
   .pachet-pick .pk-prior{grid-column:2;grid-row:3;margin:0}
   .pachet-pick .pk-cta{grid-column:2;grid-row:4;margin:0}
 }
+
+.pachet-pick .pk-m{display:none}
+@media (max-width:760px){.pachet-pick .pk-d{display:none}.pachet-pick .pk-m{display:inline}}
