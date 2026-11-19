@@ -31,11 +31,16 @@
     var u = new URL(a.dataset.base, window.location.href);
     u.searchParams.set("lang", LANG);
     u.searchParams.set("source", "casa-verde-2026");
+    var model = (d.name.match(/SE-F\d+ Lite-O/) || [""])[0];
     u.searchParams.set("package", d.name);
     u.searchParams.set("package_price", pkg);
+    u.searchParams.set("package_financing", S);
     u.searchParams.set("phase", d.phase);
     u.searchParams.set("inverter_kw", d.inv);
+    u.searchParams.set("battery_model", "Deye " + model);
+    u.searchParams.set("battery_type", "IP 21 · interior");
     u.searchParams.set("battery_kwh", kwh);
+    u.searchParams.set("battery_kwh_nominal", kwh);
     u.searchParams.set("own_contribution", pkg - S);
     u.searchParams.set("financing_amount", S);
     u.searchParams.set("estimated_score", score);
