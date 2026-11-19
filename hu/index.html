@@ -97,30 +97,44 @@
                 <div class="section-head center">
                     <h2>Ajánlataink</h2>
                 </div>
-                <div class="battery-stage" data-battery-stage tabindex="0" role="region" aria-label="Forgatható akkumulátorkatalógus">
-                    <div class="battery-ring" data-battery-ring>
-                        <div class="battery-platform" aria-hidden="true"></div>
-                        <button class="battery-option is-active" type="button" data-battery-option data-model="Deye SE-F16 Lite-O" data-type="IP 21 · beltéri" data-kwh="16" data-price="13232" aria-pressed="true">
-                            <span class="battery-art"><img src="../assets/img/casa-verde/deye-nept-front.png" width="430" height="789" alt="Baterie Deye, imagine demonstrativă"><span class="battery-art-label">16 kWh</span></span>
-                            <span class="battery-option-name">Deye SE-F16 Lite-O</span><span class="battery-option-type">IP 21 · beltéri</span><span class="battery-option-price">13 232 lej <span class="battery-option-kwh">827 lej/kWh</span> <small>teljes ár</small></span>
-                        </button>
-                        <button class="battery-option" type="button" data-battery-option data-model="Deye SE-F20 Lite-O" data-type="IP 21 · beltéri" data-kwh="20" data-price="15757" aria-pressed="false">
-                            <span class="battery-art"><img src="../assets/img/casa-verde/deye-nept-front.png" width="430" height="789" alt="Baterie Deye, imagine demonstrativă"><span class="battery-art-label">20 kWh</span></span>
-                            <span class="battery-option-name">Deye SE-F20 Lite-O</span><span class="battery-option-type">IP 21 · beltéri</span><span class="battery-option-price">15 757 lej <span class="battery-option-kwh">788 lej/kWh</span> <small>teljes ár</small></span>
-                        </button>
-                        <button class="battery-option" type="button" data-battery-option data-model="Deye SE-F20 Air-O" data-type="IP 66 · kültéri" data-kwh="20" data-price="16340" aria-pressed="false">
-                            <span class="battery-art"><img src="../assets/img/casa-verde/deye-nept-front.png" width="430" height="789" alt="Baterie Deye, imagine demonstrativă"><span class="battery-art-label">20 kWh</span></span>
-                            <span class="battery-option-name">Deye SE-F20 Air-O</span><span class="battery-option-type">IP 66 · kültéri</span><span class="battery-option-price">16 340 lej <span class="battery-option-kwh">817 lej/kWh</span> <small>teljes ár</small></span>
-                        </button>
-                        <button class="battery-option" type="button" data-battery-option data-model="Deye SE-F16 Air-O" data-type="IP 66 · kültéri" data-kwh="16" data-price="13621" aria-pressed="false">
-                            <span class="battery-art"><img src="../assets/img/casa-verde/deye-nept-front.png" width="430" height="789" alt="Baterie Deye, imagine demonstrativă"><span class="battery-art-label">16 kWh</span></span>
-                            <span class="battery-option-name">Deye SE-F16 Air-O</span><span class="battery-option-type">IP 66 · kültéri</span><span class="battery-option-price">13 621 lej <span class="battery-option-kwh">851 lej/kWh</span> <small>teljes ár</small></span>
-                        </button>
+                <div class="battery-pick">
+                    <div class="battery-pick-intro">
+                        <h3>Csak akkumulátort szeretnék:</h3>
+                        <p>Ha hibrid invertered van, válaszd ki a számodra legmegfelelőbb változatot.</p>
                     </div>
-                </div>
-                <div class="battery-controls">
-                    <button class="carousel-control" type="button" data-battery-prev aria-label="Előző akkumulátor"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="carousel-control" type="button" data-battery-next aria-label="Következő akkumulátor"><i class="fa-solid fa-arrow-right"></i></button>
+                    <div class="battery-pick-grid">
+                        <div class="battery-pick-art">
+                            <span class="battery-art"><img src="../assets/img/casa-verde/deye-nept-front.png" width="430" height="789" alt="Deye akkumulátor, illusztráció"></span>
+                            <span class="battery-pick-label" data-selected-kwh>16 kWh</span>
+                        </div>
+                        <div class="battery-pick-table-wrap">
+                            <table class="battery-pick-table" aria-label="Válassz akkumulátort">
+                                <thead><tr><th>Modell</th><th>Kapacitás</th><th class="r">Teljes ár</th></tr></thead>
+                                <tbody>
+                                <tr class="battery-pick-row is-active" data-battery-option data-model="Deye SE-F16 Lite-O" data-type="IP 21 · beltéri" data-kwh="16" data-price="13232" aria-pressed="true" tabindex="0">
+                                    <td><span class="battery-pick-name">Deye SE-F16 Lite-O</span><span class="battery-pick-type">IP 21 · beltéri</span></td>
+                                    <td class="battery-pick-kwh">16 kWh</td>
+                                    <td class="r"><strong>13 232 lej</strong><small>827 lej/kWh</small></td>
+                                </tr>
+                                <tr class="battery-pick-row" data-battery-option data-model="Deye SE-F20 Lite-O" data-type="IP 21 · beltéri" data-kwh="20" data-price="15757" aria-pressed="false" tabindex="0">
+                                    <td><span class="battery-pick-name">Deye SE-F20 Lite-O</span><span class="battery-pick-type">IP 21 · beltéri</span></td>
+                                    <td class="battery-pick-kwh">20 kWh</td>
+                                    <td class="r"><strong>15 757 lej</strong><small>788 lej/kWh</small></td>
+                                </tr>
+                                <tr class="battery-pick-row" data-battery-option data-model="Deye SE-F20 Air-O" data-type="IP 66 · kültéri" data-kwh="20" data-price="16340" aria-pressed="false" tabindex="0">
+                                    <td><span class="battery-pick-name">Deye SE-F20 Air-O</span><span class="battery-pick-type">IP 66 · kültéri</span></td>
+                                    <td class="battery-pick-kwh">20 kWh</td>
+                                    <td class="r"><strong>16 340 lej</strong><small>817 lej/kWh</small></td>
+                                </tr>
+                                <tr class="battery-pick-row" data-battery-option data-model="Deye SE-F16 Air-O" data-type="IP 66 · kültéri" data-kwh="16" data-price="13621" aria-pressed="false" tabindex="0">
+                                    <td><span class="battery-pick-name">Deye SE-F16 Air-O</span><span class="battery-pick-type">IP 66 · kültéri</span></td>
+                                    <td class="battery-pick-kwh">16 kWh</td>
+                                    <td class="r"><strong>13 621 lej</strong><small>851 lej/kWh</small></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="battery-offer-summary" aria-live="polite">
                     <div class="selected-battery">

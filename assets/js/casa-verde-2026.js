@@ -273,6 +273,8 @@
       if (selectedModel) selectedModel.textContent = selectedBattery.getAttribute("data-model");
       if (selectedType) selectedType.textContent = selectedBattery.getAttribute("data-type");
       if (selectedPrice) selectedPrice.textContent = fmt(Number(selectedBattery.getAttribute("data-price")) || 0, 0) + " " + T.lei;
+      var selectedKwhLabel = document.querySelector("[data-selected-kwh]");
+      if (selectedKwhLabel) selectedKwhLabel.textContent = selectedBattery.getAttribute("data-kwh") + " kWh";
 
       if (inKwh && inOwn) {
         var price = Number(selectedBattery.getAttribute("data-price")) || 0;
@@ -320,6 +322,11 @@
       }, { passive: true });
     }
     if (batteryOptions.length) setBattery(initialBattery);
+    for (var ki = 0; ki < batteryOptions.length; ki++) {
+      batteryOptions[ki].addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); this.click(); }
+      });
+    }
     if (mobileRow.matches && batteryOptions.length) window.setTimeout(function () { centerBattery(selectedBatteryIndex); }, 80);
     var relayoutBattery = function () {
       if (!batteryOptions.length) return;

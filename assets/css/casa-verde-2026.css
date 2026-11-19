@@ -439,3 +439,28 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 .afm-upload .explainer-video{margin:20px auto}
 .explainer-video__fallback{margin:10px 0 0;text-align:center;font-size:14px}
 .explainer-video__fallback a{color:var(--green-dark);font-weight:700}
+/* Battery picker: image left, clickable variant table right (replaces the rotating carousel) */
+.battery-pick{max-width:1000px;margin:0 auto 24px}
+.battery-pick-intro{margin-bottom:20px;text-align:center}
+.battery-pick-intro h3{margin:0 0 6px;font-size:24px;color:var(--green-deep)}
+.battery-pick-intro p{margin:0;color:var(--muted)}
+.battery-pick-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:24px;align-items:center}
+.battery-pick-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:320px;padding:16px;border-radius:var(--radius);background:linear-gradient(180deg,#f7fbf2,#eaf3e1);box-shadow:var(--shadow)}
+.battery-pick-art img{max-height:300px;width:auto;max-width:100%;object-fit:contain}
+.battery-pick-label{position:absolute;top:12px;left:12px;padding:5px 12px;border-radius:999px;background:var(--green-dark);color:#fff;font-size:13px;font-weight:700}
+.battery-pick-table-wrap{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.battery-pick-table{width:100%;border-collapse:collapse;font-size:14px}
+.battery-pick-table th{padding:12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-bottom:2px solid var(--line)}
+.battery-pick-table th.r{text-align:right}
+.battery-pick-row{cursor:pointer;transition:background .15s}
+.battery-pick-row td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.battery-pick-row:hover{background:#f3f9ec}
+.battery-pick-row.is-active{background:#eef7e4;box-shadow:inset 4px 0 0 var(--green)}
+.battery-pick-row:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.battery-pick-name{display:block;font-weight:700;color:var(--green-deep)}
+.battery-pick-type{display:block;font-size:12px;color:var(--muted)}
+.battery-pick-kwh{font-weight:600;white-space:nowrap}
+.battery-pick-row td.r{text-align:right}
+.battery-pick-row strong{display:block;color:var(--green-dark);white-space:nowrap}
+.battery-pick-row small{display:block;font-size:11px;color:var(--muted)}
+@media (max-width:760px){.battery-pick-grid{grid-template-columns:1fr}.battery-pick-art{min-height:240px}}
