@@ -508,3 +508,18 @@ body:not([data-features~="flux"]) .cta-actions .btn-ghost:hover{background:var(-
 #pachet .pk-tbl tr.is-active td:first-child{box-shadow:inset 4px 0 0 var(--green)}
 #pachet .pk-tbl td.r{white-space:nowrap}
 #pachet .pk-tbl tr[tabindex]:focus-visible{outline-offset:-3px}
+/* #pachet now lives inside #oferte, styled like the battery picker */
+.pachet-pick{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.pachet-pick .pk-phase{margin:16px 0 0}
+.pachet-pick .battery-pick-art img{max-height:340px}
+.pachet-pick .battery-offer-summary{max-width:760px}
+.pachet-pick .pk-sum{padding:0}
+.pachet-pick .battery-pick-row td.r{white-space:nowrap}
+.pachet-pick .battery-pick-type{margin-top:2px}
+@media (max-width:760px){
+  .pachet-pick .battery-pick-table th:nth-child(2),.pachet-pick .battery-pick-table td:nth-child(2){display:none}
+  .pachet-pick .battery-pick-table{font-size:13px}
+  .pachet-pick .battery-pick-row td{padding:12px 8px}
+  .pachet-pick .battery-pick-table th{padding:10px 8px}
+  .pachet-pick .battery-pick-table-wrap{overflow-x:auto}
+}
